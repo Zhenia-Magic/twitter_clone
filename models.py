@@ -3,7 +3,6 @@ def update_attrs(obj, updated_dict):
     for attribute, value in updated_dict.items():
         setattr(obj, attribute, value)
         updated_attrs.append(attribute)
-    print(updated_attrs)
 
 
 class User:
