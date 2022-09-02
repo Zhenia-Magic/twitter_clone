@@ -1,3 +1,8 @@
+NO_USER_FOUND = "No user found with this email"
+INCORRECT_PASSWORD = "Incorrect password"
+LOGGED_IN = "Logged In"
+
+
 class UserStorage:
 
     def __init__(self):
@@ -10,6 +15,20 @@ class UserStorage:
         except ValueError:
             self.users.append(user)
             print('User is added.')
+
+    def verify_user(self, email, password):
+        found = -1
+        for user in self.users:
+            if user.email == email:
+                found = user
+                break
+        if found == -1:
+            return NO_USER_FOUND
+        else:
+            if found.password == password:
+                return LOGGED_IN
+            else:
+                return INCORRECT_PASSWORD
 
     def delete_user(self, user, mode):
         try:
