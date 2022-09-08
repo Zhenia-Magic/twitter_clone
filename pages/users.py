@@ -23,4 +23,19 @@ if user_option == "Log In":
             st.write("Password is not correct.")
 
 elif user_option == "Sign Up":
-    pass
+    st.subheader("Sing Up Form")
+    email = st.text_input("Email")
+    username = st.text_input('Username')
+    first_name = st.text_input('First name')
+    last_name = st.text_input('Last name')
+    password = st.text_input("Create a password", type="password")
+    conf_password = st.text_input("Confirm a password", type="password")
+    sign_up_button = st.button("Sign Up")
+    if sign_up_button:
+        if password != conf_password:
+            st.write('Passwords do not match')
+            conf_password = st.text_input("Confirm a password", type="password")
+        st.write(user_store.users)
+        result = user_store.add_user(email, password, username, first_name, last_name)
+        st.write(f"User with email {email} and password {password} is signed up.")
+
