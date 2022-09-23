@@ -6,7 +6,7 @@ def update_attrs(obj, updated_dict):
 
 
 class User:
-    def __init__(self, email, username, hashed_password, first_name, last_name, about_me,
+    def __init__(self, email, username, hashed_password, first_name, last_name, about_me=None,
                  photo=None, is_admin=False):
         self.email = email
         self.username = username
