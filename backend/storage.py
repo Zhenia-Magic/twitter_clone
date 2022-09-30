@@ -22,10 +22,11 @@ class UserStorage:
             if user.email == email:
                 found = user
                 break
-        if found == -1:
+
+        if isinstance(found, int) and found == -1:
             return NO_USER_FOUND
         else:
-            if found.password == password:
+            if found.hashed_password == password:
                 return LOGGED_IN
             else:
                 return INCORRECT_PASSWORD
