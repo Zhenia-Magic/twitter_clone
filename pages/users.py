@@ -1,6 +1,6 @@
 import streamlit as st
 from app import user_store
-from storage import LOGGED_IN, INCORRECT_PASSWORD, NO_USER_FOUND
+from backend.storage import LOGGED_IN, INCORRECT_PASSWORD, NO_USER_FOUND
 
 st.title("Users")
 
