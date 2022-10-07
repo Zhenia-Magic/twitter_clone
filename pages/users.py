@@ -32,6 +32,16 @@ elif user_option == "Sign Up":
     first_name = st.text_input('First name')
     last_name = st.text_input('Last name')
     password = st.text_input("Create a password", type="password")
+    if len(last_name) < 2:
+        invalid_input = True
+        st.error("Last name must be longer than 1 symbol")
+    else:
+        invalid_input = False
+    if len(first_name) < 2:
+        invalid_input = True
+        st.error("First name must be longer than 1 symbol")
+    else:
+        invalid_input = False
     if len(password) < 8:
         invalid_input = True
         st.error("Password must be longer than 8 symbols")
