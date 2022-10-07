@@ -32,6 +32,7 @@ elif user_option == "Sign Up":
     invalid_input_email = False
     invalid_input_last_name = False
     invalid_input_first_name = False
+    invalid_input_username = False
     st.subheader("Sing Up Form")
     email = st.text_input("Email")
 
@@ -42,19 +43,24 @@ elif user_option == "Sign Up":
         invalid_input_email = False
 
     username = st.text_input('Username')
-    first_name = st.text_input('First name')
-    last_name = st.text_input('Last name')
-    password = st.text_input("Create a password", type="password")
-    if len(last_name) < 2:
-        invalid_input_last_name = True
-        st.error("Last name must be longer than 1 symbol")
+    if len(username) < 2:
+        invalid_input_username = True
+        st.error("username must be longer than 1 symbol")
     else:
-        invalid_input_last_name = False
+        invalid_input_username = False
+    first_name = st.text_input('First name')
     if len(first_name) < 2:
         invalid_input_first_name = True
         st.error("First name must be longer than 1 symbol")
     else:
         invalid_input_first_name = False
+    last_name = st.text_input('Last name')
+    if len(last_name) < 2:
+        invalid_input_last_name = True
+        st.error("Last name must be longer than 1 symbol")
+    else:
+        invalid_input_last_name = False
+    password = st.text_input("Create a password", type="password")
 
     if len(password) < 8:
         invalid_input_pass = True

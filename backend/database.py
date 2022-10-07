@@ -24,6 +24,40 @@ class Tag(Base):
     description = Column(String)
     deleted = Column(Boolean)
 
+
+class Country(Base):
+    __tablename__ = 'countries'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    latitude = Column(Integer)
+    longitude = Column(Integer)
+    deleted = Column(Boolean)
+
+
+class Post(Base):
+    __tablename__ = 'posts'
+
+    id = Column(Integer, primary_key=True)
+    text = Column(String)
+    created_at = Column(Integer)
+    deleted = Column(Boolean)
+    hashtags = Column(String)
+    author = Column(String)
+    country = Column(String)
+    title = Column(String)
+
+
+class Message(Base):
+    __tablename__ = 'messages'
+
+    id = Column(Integer, primary_key=True)
+    message = Column(String)
+    sender = Column(String)
+    reciever = Column(String)
+    date = Column(Integer)
+
+
 # parent_id = Column(Integer, ForeignKey("parent.id"))
 # children = relationship("Child", backref="parent")
 # parents = relationship(
