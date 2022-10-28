@@ -22,7 +22,6 @@ class UserStorage:
             if user.email == email:
                 found = user
                 break
-
         if isinstance(found, int) and found == -1:
             return NO_USER_FOUND
         else:

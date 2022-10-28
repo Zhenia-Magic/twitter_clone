@@ -1,14 +1,15 @@
 import streamlit as st
-from app import user_store
-import re
+from backend.utils import email_is_valid
 from backend.storage import LOGGED_IN, INCORRECT_PASSWORD, NO_USER_FOUND
 from backend.models import User
+from backend.api import verify_user
+from backend.database import session
+from backend.database_utils import add_user_to_db
 
 st.title("Users")
 
 user_option = st.radio("Do you want to log in or sign up?",
                        ("Log In", "Sign Up"), index=0)
-regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
 if user_option == "Log In":
     st.subheader("Log In Form")
@@ -17,8 +18,7 @@ if user_option == "Log In":
 
     login_button = st.button("Log In")
     if login_button:
-        st.write(user_store.users)
-        result = user_store.verify_user(email, password)
+        result = verify_user(session, email, password)
         if result == NO_USER_FOUND:
             st.write("User is not found.")
         elif result == LOGGED_IN:
@@ -36,11 +36,11 @@ elif user_option == "Sign Up":
     st.subheader("Sing Up Form")
     email = st.text_input("Email")
 
-    if re.fullmatch(regex, email) is None:
+    if email_is_valid(email):
+        invalid_input_email = False
+    else:
         invalid_input_email = True
         st.error("Email is not valid")
-    else:
-        invalid_input_email = False
 
     username = st.text_input('Username')
     if len(username) < 2:
@@ -85,13 +85,8 @@ elif user_option == "Sign Up":
         if password != conf_password:
             st.write('Passwords do not match')
         else:
-            if user_store.verify_user(email, password) == NO_USER_FOUND:
-                st.write(user_store.users)
-                user = User(email, username, password, first_name, last_name)
-                result = user_store.add_user(user)
+            if verify_user(session, email, password) == NO_USER_FOUND:
+                result = add_user_to_db(session, email, username, last_name, first_name, password, '', False)
                 st.write(f"User with email {email} and password {password} is signed up.")
-                st.write(vars(user))
-                st.write(user_store.verify_user(email, password))
             else:
                 st.write('User already exist')
-
